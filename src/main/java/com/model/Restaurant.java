@@ -23,13 +23,13 @@ public class Restaurant {
 	@Column(name = "NAME")
 	private long name;
 
-	@OneToMany(mappedBy = "RESTAURANT", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-	private List<ResTable> tables;
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+	private List<RestaurantTable> tables;
 
 	public Restaurant() {
 	}
 
-	public Restaurant(long id, long name, List<ResTable> tables) {
+	public Restaurant(long id, long name, List<RestaurantTable> tables) {
 		this.id = id;
 		this.name = name;
 		this.tables = tables;
@@ -51,11 +51,11 @@ public class Restaurant {
 		this.name = name;
 	}
 
-	public List<ResTable> getSeats() {
+	public List<RestaurantTable> getSeats() {
 		return tables;
 	}
 
-	public void setSeats(List<ResTable> seats) {
+	public void setSeats(List<RestaurantTable> seats) {
 		this.tables = seats;
 	}
 

@@ -10,8 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TABLE")
-public class ResTable {
+@Table(name = "RESTAURANT_TABLES")
+public class RestaurantTable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
@@ -24,10 +24,10 @@ public class ResTable {
 	@JoinColumn(name = "RESTAURANT_ID", nullable = false)
 	private Restaurant restaurant;
 
-	public ResTable() {
+	public RestaurantTable() {
 	}
 
-	public ResTable(long id, boolean isAvailable, Restaurant restaurant) {
+	public RestaurantTable(long id, boolean isAvailable, Restaurant restaurant) {
 		this.id = id;
 		this.isAvailable = isAvailable;
 		this.restaurant = restaurant;
