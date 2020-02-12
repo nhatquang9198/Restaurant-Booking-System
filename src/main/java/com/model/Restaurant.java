@@ -21,15 +21,15 @@ public class Restaurant {
 	private long id;
 
 	@Column(name = "NAME")
-	private long name;
+	private String name;
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-	private List<RestaurantTable> tables;
+	private List<ResTable> tables;
 
 	public Restaurant() {
 	}
 
-	public Restaurant(long id, long name, List<RestaurantTable> tables) {
+	public Restaurant(long id, String name, List<ResTable> tables) {
 		this.id = id;
 		this.name = name;
 		this.tables = tables;
@@ -43,25 +43,25 @@ public class Restaurant {
 		this.id = id;
 	}
 
-	public long getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(long name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public List<RestaurantTable> getSeats() {
+	public List<ResTable> getTables() {
 		return tables;
 	}
 
-	public void setSeats(List<RestaurantTable> seats) {
-		this.tables = seats;
+	public void setTables(List<ResTable> tables) {
+		this.tables = tables;
 	}
 
 	@Override
 	public String toString() {
-		return "Restaurant [id=" + id + ", name=" + name + ", seats=" + tables + "]";
+		return "Restaurant [id=" + id + ", name=" + name + ", tables=" + tables + "]";
 	}
 
 }

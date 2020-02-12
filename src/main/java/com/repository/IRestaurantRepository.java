@@ -9,6 +9,7 @@ import com.model.Restaurant;
 
 @Repository
 public interface IRestaurantRepository extends CrudRepository<Restaurant, Long> {
-	
+
+	@Override
 	List<Restaurant> findAll();
 }

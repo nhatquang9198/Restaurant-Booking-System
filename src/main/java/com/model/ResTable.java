@@ -2,6 +2,7 @@ package com.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,9 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "RESTAURANT_TABLES")
-public class RestaurantTable {
+public class ResTable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
@@ -20,14 +23,15 @@ public class RestaurantTable {
 	@Column(name = "AVAILABLE")
 	private boolean isAvailable;
 
-	@ManyToOne
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "RESTAURANT_ID", nullable = false)
 	private Restaurant restaurant;
 
-	public RestaurantTable() {
+	public ResTable() {
 	}
 
-	public RestaurantTable(long id, boolean isAvailable, Restaurant restaurant) {
+	public ResTable(long id, boolean isAvailable, Restaurant restaurant) {
 		this.id = id;
 		this.isAvailable = isAvailable;
 		this.restaurant = restaurant;

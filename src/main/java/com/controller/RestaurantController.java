@@ -1,9 +1,12 @@
 package com.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,17 +19,30 @@ import com.service.RestaurantService;
 @RequestMapping("/api/restaurants")
 public class RestaurantController {
 	@Autowired
-	private RestaurantService restaurantService;
-	
+	private RestaurantService service;
+
 	@PostMapping
 	public Restaurant save(@RequestBody Restaurant restaurant) {
-		return restaurantService.save(restaurant);
+		return service.save(restaurant);
 	}
-	
+
+//	@PutMapping("/{id}")
+//	public Restaurant update(@PathVariable("id") Long id, @RequestBody Restaurant restaurant) {
+//		return service.update(id, restaurant);
+//	}
+
 	@GetMapping
 	public List<Restaurant> readAll() {
-		return restaurantService.findAll();
+		return service.findAll();
 	}
-	
-	
+
+	@GetMapping("/{id}")
+	public Optional<Restaurant> getById(@PathVariable("id") Long id) {
+		return service.findById(id);
+	}
+
+	@DeleteMapping("/{id}")
+	public void create(@PathVariable("id") Long id) {
+		service.deleteById(id);
+	}
 }

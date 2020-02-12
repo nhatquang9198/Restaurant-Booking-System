@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.model.Restaurant;
+import com.model.ResTable;
 
-public interface ITableRepository extends CrudRepository<Restaurant, Long>{
+public interface ITableRepository extends CrudRepository<ResTable, Long>{
 	
-	List<Restaurant> findAll();
+	List<ResTable> findAll();
 }
