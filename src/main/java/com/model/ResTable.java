@@ -1,5 +1,8 @@
 package com.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,12 +20,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "RESTAURANT_TABLES")
 public class ResTable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@Column(name = "AVAILABLE")
 	private boolean isAvailable;
+
+	@OneToMany(mappedBy = "resTable", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+	private Set<Reservation> reservation;
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -66,5 +73,4 @@ public class ResTable {
 		return "Seat [id=" + id + ", isAvailable=" + isAvailable + ", restaurant=" + restaurant + "]";
 	}
 
-	
 }

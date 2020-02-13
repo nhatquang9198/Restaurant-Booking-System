@@ -1,36 +1,39 @@
 package com.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dao.IRestaurantRepository;
 import com.model.Restaurant;
-import com.repository.IRestaurantRepository;
 
 @Service
 public class RestaurantService {
 	@Autowired
-	IRestaurantRepository repository;
+	private IRestaurantRepository restaurantRepository;
 
 	public Restaurant save(Restaurant restaurant) {
-		return repository.save(restaurant);
+		return restaurantRepository.save(restaurant);
 	}
 
-//	public Restaurant update(Long id, Restaurant restaurant) {
-//		return repository.update(id, restaurant.getName());
-//	}
+	public Restaurant update(Long id, Restaurant restaurant) {
+		Restaurant res = restaurantRepository.findById(id).get();
+		res.setName(restaurant.getName());
+
+		return restaurantRepository.save(res);
+	}
 
 	public List<Restaurant> findAll() {
-		return repository.findAll();
+		return restaurantRepository.findAll();
 	}
 
-	public Optional<Restaurant> findById(Long id) {
-		return repository.findById(id);
+	public Restaurant findById(Long id) {
+		return restaurantRepository.findById(id).get();
+
 	}
 
 	public void deleteById(Long id) {
-		repository.deleteById(id);
+		restaurantRepository.deleteById(id);
 	}
 }

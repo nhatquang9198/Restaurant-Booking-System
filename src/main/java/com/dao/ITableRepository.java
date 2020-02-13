@@ -1,4 +1,4 @@
-package com.repository;
+package com.dao;
 
 import java.util.List;
 
@@ -8,5 +8,6 @@ import com.model.ResTable;
 
 public interface ITableRepository extends CrudRepository<ResTable, Long>{
 	
+	@Override
 	List<ResTable> findAll();
 }

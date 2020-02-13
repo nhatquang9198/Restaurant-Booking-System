@@ -1,13 +1,13 @@
-package com.controller;
+package com.resource;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,32 +17,38 @@ import com.service.RestaurantService;
 
 @RestController
 @RequestMapping("/api/restaurants")
-public class RestaurantController {
+public class RestaurantResource {
 	@Autowired
 	private RestaurantService service;
 
+	// CRUD
+	// Create
 	@PostMapping
 	public Restaurant save(@RequestBody Restaurant restaurant) {
 		return service.save(restaurant);
 	}
 
-//	@PutMapping("/{id}")
-//	public Restaurant update(@PathVariable("id") Long id, @RequestBody Restaurant restaurant) {
-//		return service.update(id, restaurant);
-//	}
-
+	// Read all
 	@GetMapping
-	public List<Restaurant> readAll() {
+	public List<Restaurant> findAll() {
 		return service.findAll();
 	}
 
+	// Read detail
 	@GetMapping("/{id}")
-	public Optional<Restaurant> getById(@PathVariable("id") Long id) {
+	public Restaurant getById(@PathVariable("id") Long id) {
 		return service.findById(id);
 	}
 
+	// Update
+	@PutMapping("/{id}")
+	public Restaurant update(@PathVariable("id") Long id, @RequestBody Restaurant restaurant) {
+		return service.update(id, restaurant);
+	}
+
+	// Delete
 	@DeleteMapping("/{id}")
-	public void create(@PathVariable("id") Long id) {
+	public void delete(@PathVariable("id") Long id) {
 		service.deleteById(id);
 	}
 }
