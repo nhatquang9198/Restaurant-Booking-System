@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,8 +22,11 @@ public class Restaurant {
 	@Column(name = "NAME")
 	private String name;
 
-	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE)
 	private List<ResTable> tables;
+
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE)
+	private List<ResTable> reservations;
 
 	public Restaurant() {
 	}

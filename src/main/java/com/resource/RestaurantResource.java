@@ -25,7 +25,7 @@ public class RestaurantResource {
 	// Create
 	@PostMapping
 	public Restaurant save(@RequestBody Restaurant restaurant) {
-		return service.save(restaurant);
+		return service.create(restaurant);
 	}
 
 	// Read all

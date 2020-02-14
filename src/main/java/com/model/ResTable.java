@@ -1,6 +1,6 @@
 package com.model;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,11 +24,11 @@ public class ResTable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name = "AVAILABLE")
-	private boolean isAvailable;
+	@Column(name = "NUMBER_OF_CHAIRS")
+	private int chairs_num;
 
-	@OneToMany(mappedBy = "resTable", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-	private Set<Reservation> reservation;
+	@OneToMany(mappedBy = "resTable", cascade = CascadeType.REMOVE)
+	private List<Reservation> reservations;
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -38,9 +38,10 @@ public class ResTable {
 	public ResTable() {
 	}
 
-	public ResTable(long id, boolean isAvailable, Restaurant restaurant) {
+	public ResTable(long id, int chairs_num, List<Reservation> reservations, Restaurant restaurant) {
 		this.id = id;
-		this.isAvailable = isAvailable;
+		this.chairs_num = chairs_num;
+		this.reservations = reservations;
 		this.restaurant = restaurant;
 	}
 
@@ -52,12 +53,20 @@ public class ResTable {
 		this.id = id;
 	}
 
-	public boolean isAvailable() {
-		return isAvailable;
+	public int getChairs_num() {
+		return chairs_num;
 	}
 
-	public void setAvailable(boolean isAvailable) {
-		this.isAvailable = isAvailable;
+	public void setChairs_num(int chairs_num) {
+		this.chairs_num = chairs_num;
+	}
+
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
 	public Restaurant getRestaurant() {
@@ -70,7 +79,8 @@ public class ResTable {
 
 	@Override
 	public String toString() {
-		return "Seat [id=" + id + ", isAvailable=" + isAvailable + ", restaurant=" + restaurant + "]";
+		return "ResTable [id=" + id + ", chairs_num=" + chairs_num + ", reservations=" + reservations + ", restaurant="
+				+ restaurant + "]";
 	}
 
 }

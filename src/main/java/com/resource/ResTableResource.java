@@ -24,7 +24,7 @@ public class ResTableResource {
 	// Create
 	@PostMapping
 	public ResTable save(@PathVariable("restaurantId") Long restaurantId, @RequestBody ResTable table) {
-		return tableService.save(restaurantId, table);
+		return tableService.create(restaurantId, table);
 	}
 
 	// Read all tables of a specific restaurant
@@ -36,14 +36,14 @@ public class ResTableResource {
 	// Read detail of a specific table
 	@GetMapping("/{tableId}")
 	public ResTable findById(@PathVariable("tableId") Long tableId) {
-		return tableService.findTableById(tableId);
+		return tableService.findById(tableId);
 	}
 
 	// Read all tables that are available
-	@GetMapping("/emptytables")
-	public List<ResTable> findEmptyTables(@PathVariable("restaurantId") Long restaurantId) {
-		return tableService.findEmptyTables(restaurantId);
-	}
+//	@GetMapping("/emptytables")
+//	public List<ResTable> findEmptyTables(@PathVariable("restaurantId") Long restaurantId) {
+//		return tableService.findEmptyTables(restaurantId);
+//	}
 
 	// Update
 	@PutMapping("/{tableId}")

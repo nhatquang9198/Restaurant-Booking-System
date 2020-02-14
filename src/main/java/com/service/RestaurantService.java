@@ -13,8 +13,16 @@ public class RestaurantService {
 	@Autowired
 	private IRestaurantRepository restaurantRepository;
 
-	public Restaurant save(Restaurant restaurant) {
+	public Restaurant create(Restaurant restaurant) {
 		return restaurantRepository.save(restaurant);
+	}
+
+	public List<Restaurant> findAll() {
+		return restaurantRepository.findAll();
+	}
+
+	public Restaurant findById(Long id) {
+		return restaurantRepository.findById(id).get();
 	}
 
 	public Restaurant update(Long id, Restaurant restaurant) {
@@ -24,16 +32,8 @@ public class RestaurantService {
 		return restaurantRepository.save(res);
 	}
 
-	public List<Restaurant> findAll() {
-		return restaurantRepository.findAll();
-	}
-
-	public Restaurant findById(Long id) {
-		return restaurantRepository.findById(id).get();
-
-	}
-
 	public void deleteById(Long id) {
 		restaurantRepository.deleteById(id);
 	}
+
 }
