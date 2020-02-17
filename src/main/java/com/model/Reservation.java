@@ -30,21 +30,22 @@ public class Reservation {
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TABLE_ID", nullable = false)
-	private ResTable resTable;
+	@JoinColumn(name = "RESTAURANT_ID", nullable = false)
+	private Restaurant restaurant;
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "RESTAURANT_ID", nullable = false)
-	private Restaurant restaurant;
+	@JoinColumn(name = "TABLE_ID", nullable = false)
+	private ResTable resTable;
 
 	public Reservation() {
 	}
 
-	public Reservation(Long id, LocalDate date, boolean isApproved, ResTable resTable) {
+	public Reservation(Long id, LocalDate date, boolean isApproved, Restaurant restaurant, ResTable resTable) {
 		this.id = id;
 		this.date = date;
 		this.isApproved = isApproved;
+		this.restaurant = restaurant;
 		this.resTable = resTable;
 	}
 
@@ -72,6 +73,14 @@ public class Reservation {
 		this.isApproved = isApproved;
 	}
 
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+
 	public ResTable getResTable() {
 		return resTable;
 	}
@@ -82,8 +91,8 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Reservation [id=" + id + ", date=" + date + ", isApproved=" + isApproved + ", resTable=" + resTable
-				+ "]";
+		return "Reservation [id=" + id + ", date=" + date + ", isApproved=" + isApproved + ", restaurant=" + restaurant
+				+ ", resTable=" + resTable + "]";
 	}
 
 }

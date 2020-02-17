@@ -1,5 +1,6 @@
-package com.resource;
+package com.api;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,11 @@ public class ResTableResource {
 	}
 
 	// Read all tables that are available
-//	@GetMapping("/emptytables")
-//	public List<ResTable> findEmptyTables(@PathVariable("restaurantId") Long restaurantId) {
-//		return tableService.findEmptyTables(restaurantId);
-//	}
+	@GetMapping("/emptytables")
+	public List<ResTable> findEmptyTables(@PathVariable("restaurantId") Long restaurantId,
+			@RequestBody LocalDate date) {
+		return tableService.findEmptyTables(restaurantId, date);
+	}
 
 	// Update
 	@PutMapping("/{tableId}")

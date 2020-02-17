@@ -49,10 +49,20 @@ public class ResTableService {
 		return restaurantRepository.findById(restaurantId).get().getTables();
 	}
 
+	// sai
 	public List<ResTable> findEmptyTables(Long restaurantId, LocalDate date) {
 		List<ResTable> tables = new ArrayList<ResTable>();
-		restaurantRepository.findById(restaurantId).get().getTables().forEach(table -> {
-		});
+		
+//		restaurantRepository.findById(restaurantId).get().getTables().forEach(table -> {
+//
+//			table.getReservations().forEach(res -> {
+//				if (res.getDate().equals(date) && res.isApproved() == false) {
+//					tables.add(table);
+//				}
+//			});
+//
+//		});
+		
 		return tables;
 	}
 

@@ -1,4 +1,4 @@
-package com.resource;
+package com.api;
 
 import java.util.List;
 
