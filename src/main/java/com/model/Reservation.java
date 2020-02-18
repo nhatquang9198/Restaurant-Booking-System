@@ -25,8 +25,8 @@ public class Reservation {
 	@Column(name = "DATE")
 	private LocalDate date;
 
-	@Column(name = "APPROVED")
-	private boolean isApproved;
+	@Column(name = "APPROVED", columnDefinition = "boolean default false")
+	private boolean isApproved;	
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -39,6 +39,7 @@ public class Reservation {
 	private ResTable resTable;
 
 	public Reservation() {
+		System.out.println();
 	}
 
 	public Reservation(Long id, LocalDate date, boolean isApproved, Restaurant restaurant, ResTable resTable) {

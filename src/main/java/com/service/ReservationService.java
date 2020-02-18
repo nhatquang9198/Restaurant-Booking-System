@@ -1,7 +1,6 @@
 package com.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class ReservationService {
 	@Autowired
 	private IRestaurantRepository restaurantRepository;
 
-	public Reservation create(Long tableId, Long restaurantId, Reservation reservation) {
+	public Reservation create(Long restaurantId, Long tableId, Reservation reservation) {
 		if (isValidDate(reservation.getDate())) {
 			ResTable table = tableRepository.findById(tableId).get();
 			Restaurant restaurant = restaurantRepository.findById(restaurantId).get();
@@ -45,8 +44,12 @@ public class ReservationService {
 		return reservationRepository.findById(id).get();
 	}
 
-	public Reservation update(Long id, Reservation reservation) {
-		Reservation res = reservationRepository.findById(id).get();
+	public List<Reservation> findByDate(LocalDate date) {
+		return reservationRepository.findByDate(date);
+	}
+
+	public Reservation update(Long reservationId, Reservation reservation) {
+		Reservation res = reservationRepository.findById(reservationId).get();
 
 		res.setApproved(reservation.isApproved());
 		res.setDate(reservation.getDate());
@@ -55,27 +58,25 @@ public class ReservationService {
 		return reservationRepository.save(res);
 	}
 
-	public void deleteById(Long id) {
-		reservationRepository.deleteById(id);
+	public void deleteById(Long reservationId) {
+		reservationRepository.deleteById(reservationId);
 	}
 
 	public List<Reservation> findByRestaurantId(Long restaurantId) {
-		List<Reservation> reservations = new ArrayList<>();
-		reservationRepository.findAll().forEach(res -> {
-			if (res.getRestaurant().getId() == restaurantId) {
-				reservations.add(res);
-			}
-		});
-		return reservations;
+		// List<Reservation> reservations = new ArrayList<>();
+		// reservationRepository.findAll().forEach(res -> {
+		// if (res.getRestaurant().getId() == restaurantId) {
+		// reservations.add(res);
+		// }
+		// });
+		// return reservations;
 
-		// return reservationRepository.findByRestaurantId(restaurantId);
+		return reservationRepository.findByRestaurantId(restaurantId);
 	}
 
 	private boolean isValidDate(LocalDate date) {
-		LocalDate now = LocalDate.now();
-		now.minusDays(1);
-		return date.isAfter(now) ? true : false;
-
+		LocalDate yesterday = LocalDate.now().minusDays(1);
+		return date.isAfter(yesterday) ? true : false;
 	}
 
 }

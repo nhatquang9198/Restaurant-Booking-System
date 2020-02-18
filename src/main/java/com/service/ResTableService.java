@@ -1,7 +1,6 @@
 package com.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,21 +48,29 @@ public class ResTableService {
 		return restaurantRepository.findById(restaurantId).get().getTables();
 	}
 
-	// sai
-	public List<ResTable> findEmptyTables(Long restaurantId, LocalDate date) {
-		List<ResTable> tables = new ArrayList<ResTable>();
+	public List<ResTable> findEmptyTablesByRestaurantId(Long restaurantId, LocalDate date) {
+		Restaurant restaurant = restaurantRepository.findById(restaurantId).get();
 		
-//		restaurantRepository.findById(restaurantId).get().getTables().forEach(table -> {
-//
-//			table.getReservations().forEach(res -> {
-//				if (res.getDate().equals(date) && res.isApproved() == false) {
-//					tables.add(table);
-//				}
-//			});
-//
-//		});
-		
-		return tables;
+		return tableRepository.findEmptyTablesByRestaurantId(restaurant, date);
+
+		// List<ResTable> tables = new ArrayList<ResTable>();
+		// restaurantRepository.findById(restaurantId).get().getTables().forEach(table
+		// -> {
+		//
+		// boolean flag = true;
+		// for (Reservation reservation :
+		// reservationRepository.findByResTableAndDate(table, date)) {
+		// if (reservation.isApproved() == true) {
+		// flag = false;
+		// break;
+		// }
+		// }
+		// if (flag == true) {
+		// tables.add(table);
+		// }
+		//
+		// });
+		// return tables;
 	}
 
 }

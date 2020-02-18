@@ -2,12 +2,12 @@ package com.dao;
 
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.model.Account;
 
-public interface IAccountRepository extends CrudRepository<Account, Long> {
+public interface IAccountRepository extends PagingAndSortingRepository<Account, Long> {
 	
 	@Override
-	List<Account> findAll();
+	public List<Account> findAll();
 }

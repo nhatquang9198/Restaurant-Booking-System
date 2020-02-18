@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,9 +43,10 @@ public class ResTableResource {
 
 	// Read all tables that are available
 	@GetMapping("/emptytables")
-	public List<ResTable> findEmptyTables(@PathVariable("restaurantId") Long restaurantId,
-			@RequestBody LocalDate date) {
-		return tableService.findEmptyTables(restaurantId, date);
+	public ResponseEntity<List<ResTable>> findEmptyTablesByRestaurantId(
+			@PathVariable("restaurantId") Long restaurantId) {
+		return ResponseEntity.ok().body(tableService.findEmptyTablesByRestaurantId(restaurantId, LocalDate.now()));
+//		return ResponseEntity.ok().body(tableService.findEmptyTablesByRestaurantId(restaurantId, date));
 	}
 
 	// Update
