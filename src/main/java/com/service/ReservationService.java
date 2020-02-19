@@ -63,14 +63,6 @@ public class ReservationService {
 	}
 
 	public List<Reservation> findByRestaurantId(Long restaurantId) {
-		// List<Reservation> reservations = new ArrayList<>();
-		// reservationRepository.findAll().forEach(res -> {
-		// if (res.getRestaurant().getId() == restaurantId) {
-		// reservations.add(res);
-		// }
-		// });
-		// return reservations;
-
 		return reservationRepository.findByRestaurantId(restaurantId);
 	}
 

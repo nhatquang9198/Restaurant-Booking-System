@@ -5,21 +5,26 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.model.ResTable;
 import com.model.Restaurant;
 
 public interface ITableRepository extends PagingAndSortingRepository<ResTable, Long> {
 
-	final String findEmptyTableQuery = "SELECT t FROM ResTable t LEFT JOIN Reservation r ON t.id = r.resTable WHERE t.restaurant = ?1 AND r.date = ?2 or r.date is null AND r.isApproved = false or r.isApproved is null";
-
 	@Override
 	public List<ResTable> findAll();
-	
-//	@Query("SELECT t FROM ResTable t LEFT JOIN Reservation r ON t.id = r.resTable WHERE t.restaurant = ?1 AND (r.date = ?2 OR r.date is null) AND (r.isApproved = false OR r.isApproved is null) GROUP BY t.id")
-//	public List<ResTable> findEmptyTablesByRestaurantId(Restaurant restaurant, LocalDate date);
-	
-	@Query("SELECT t FROM ResTable t LEFT JOIN Reservation r ON t.id = r.resTable WHERE t.restaurant = ?1 AND (r.date = ?2 OR r.date is null) AND (r.isApproved = false OR r.isApproved is null) GROUP BY t.id")
-	public List<ResTable> findEmptyTablesByRestaurantId(Restaurant restaurant, LocalDate date);
-	
+
+	// This function use native query
+//	@Query(value = "SELECT * FROM restaurant_tables WHERE restaurant_id = :restaurantId AND id NOT IN(SELECT t.id FROM restaurant_tables t JOIN reservations r ON t.id = r.table_id WHERE r.date = :date AND r.approved = true);", nativeQuery = true)
+//	public List<ResTable> findEmptyTablesByRestaurantId(@Param("restaurantId") Long restaurantId,
+//			@Param("date") LocalDate date);
+
+	@Query("SELECT t FROM ResTable t WHERE t.restaurant = :restaurant AND t.id NOT IN (SELECT t.id FROM ResTable t JOIN Reservation r ON t.id = r.resTable WHERE r.date = :date AND r.isApproved = true)")
+	public List<ResTable> findEmptyTablesByRestaurantId(@Param("restaurant") Restaurant restaurant,
+			@Param("date") LocalDate date);
+
+	// "SELECT t FROM ResTable t WHERE t.restaurant = :restaurant AND t.id
+	// NOT IN (SELECT t.id FROM ResTable t JOIN Reservation r ON t.id = r.resTable
+	// WHERE r.date = :date AND r.isApproved = true)"
 }

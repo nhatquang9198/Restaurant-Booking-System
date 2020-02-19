@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.model.ResTable;
@@ -41,12 +44,11 @@ public class ResTableResource {
 		return tableService.findById(tableId);
 	}
 
-	// Read all tables that are available
+	// Read all tables that are available of a specific restaurant
 	@GetMapping("/emptytables")
-	public ResponseEntity<List<ResTable>> findEmptyTablesByRestaurantId(
-			@PathVariable("restaurantId") Long restaurantId) {
-		return ResponseEntity.ok().body(tableService.findEmptyTablesByRestaurantId(restaurantId, LocalDate.now()));
-//		return ResponseEntity.ok().body(tableService.findEmptyTablesByRestaurantId(restaurantId, date));
+	public ResponseEntity<List<ResTable>> findEmptyTablesByRestaurantId(@PathVariable("restaurantId") Long restaurantId,
+			@RequestParam("date") @DateTimeFormat(iso = ISO.DATE) LocalDate date) {
+		return ResponseEntity.ok().body(tableService.findEmptyTablesByRestaurantId(restaurantId, date));
 	}
 
 	// Update

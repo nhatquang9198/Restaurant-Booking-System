@@ -50,27 +50,9 @@ public class ResTableService {
 
 	public List<ResTable> findEmptyTablesByRestaurantId(Long restaurantId, LocalDate date) {
 		Restaurant restaurant = restaurantRepository.findById(restaurantId).get();
-		
-		return tableRepository.findEmptyTablesByRestaurantId(restaurant, date);
+//		LocalDate parsed_date = LocalDate.parse(date);
 
-		// List<ResTable> tables = new ArrayList<ResTable>();
-		// restaurantRepository.findById(restaurantId).get().getTables().forEach(table
-		// -> {
-		//
-		// boolean flag = true;
-		// for (Reservation reservation :
-		// reservationRepository.findByResTableAndDate(table, date)) {
-		// if (reservation.isApproved() == true) {
-		// flag = false;
-		// break;
-		// }
-		// }
-		// if (flag == true) {
-		// tables.add(table);
-		// }
-		//
-		// });
-		// return tables;
+		return tableRepository.findEmptyTablesByRestaurantId(restaurant, date);
 	}
 
 }

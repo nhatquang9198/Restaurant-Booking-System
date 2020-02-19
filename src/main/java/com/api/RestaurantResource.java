@@ -21,7 +21,6 @@ public class RestaurantResource {
 	@Autowired
 	private RestaurantService service;
 
-	// CRUD
 	// Create
 	@PostMapping
 	public Restaurant save(@RequestBody Restaurant restaurant) {

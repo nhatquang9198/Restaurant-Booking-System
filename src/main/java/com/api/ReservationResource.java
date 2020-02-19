@@ -3,6 +3,8 @@ package com.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,15 +36,30 @@ public class ReservationResource {
 	}
 
 	// Read detail of a specific reservation
+	// @GetMapping("/reservations/{reservationId}")
+	// public Reservation findById(@PathVariable("reservationId") Long
+	// reservationId) {
+	// return reservationService.findById(reservationId);
+	// }
+
 	@GetMapping("/reservations/{reservationId}")
-	public Reservation findById(@PathVariable("reservationId") Long reservationId) {
-		return reservationService.findById(reservationId);
+	public ResponseEntity<Reservation> findById(@PathVariable("reservationId") Long reservationId) {
+		// return reservationService.findById(reservationId);
+		return ResponseEntity.ok().body(reservationService.findById(reservationId));
 	}
 
 	// Update
 	@PutMapping("/reservations/{reservationId}")
 	public Reservation update(@PathVariable("reservationId") Long reservationId, @RequestBody Reservation reservation) {
 		return reservationService.update(reservationId, reservation);
+	}
+
+	// Delete
+	@DeleteMapping("/reservations/{reservationId}")
+	public ResponseEntity<Void> delete(@PathVariable("reservationId") Long reservationId,
+			@RequestBody Reservation reservation) {
+		reservationService.deleteById(reservationId);
+		return ResponseEntity.noContent().header("Content-Length", "0").build();
 	}
 
 }
