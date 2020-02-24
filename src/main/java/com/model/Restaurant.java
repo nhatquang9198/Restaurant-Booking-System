@@ -11,8 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "RESTAURANTS")
+@JsonIgnoreProperties(value = { "tables", "reservations" })
 public class Restaurant {
 	@Id
 	@Column(name = "ID")

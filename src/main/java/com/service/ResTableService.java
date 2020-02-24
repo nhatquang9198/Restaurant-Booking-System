@@ -35,7 +35,7 @@ public class ResTableService {
 
 	public ResTable update(Long tableId, ResTable table) {
 		ResTable resTable = tableRepository.findById(tableId).get();
-		resTable.setChairs_num(table.getChairs_num());
+		resTable.setSeats(table.getSeats());
 
 		return tableRepository.save(resTable);
 	}

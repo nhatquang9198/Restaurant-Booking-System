@@ -14,23 +14,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "RESTAURANT_TABLES")
+@JsonIgnoreProperties(value = { "reservations", "restaurant" })
 public class ResTable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name = "NUMBER_OF_CHAIRS")
-	private int chairs_num;
+	@Column(name = "SEATS")
+	private int seats;
 
 	@OneToMany(mappedBy = "resTable", cascade = CascadeType.REMOVE)
 	private List<Reservation> reservations;
 
-	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "RESTAURANT_ID", nullable = false)
 	private Restaurant restaurant;
@@ -38,9 +38,9 @@ public class ResTable {
 	public ResTable() {
 	}
 
-	public ResTable(long id, int chairs_num, List<Reservation> reservations, Restaurant restaurant) {
+	public ResTable(long id, int seats, List<Reservation> reservations, Restaurant restaurant) {
 		this.id = id;
-		this.chairs_num = chairs_num;
+		this.seats = seats;
 		this.reservations = reservations;
 		this.restaurant = restaurant;
 	}
@@ -53,12 +53,12 @@ public class ResTable {
 		this.id = id;
 	}
 
-	public int getChairs_num() {
-		return chairs_num;
+	public int getSeats() {
+		return seats;
 	}
 
-	public void setChairs_num(int chairs_num) {
-		this.chairs_num = chairs_num;
+	public void setSeats(int seats) {
+		this.seats = seats;
 	}
 
 	public List<Reservation> getReservations() {
@@ -79,7 +79,7 @@ public class ResTable {
 
 	@Override
 	public String toString() {
-		return "ResTable [id=" + id + ", chairs_num=" + chairs_num + ", reservations=" + reservations + ", restaurant="
+		return "ResTable [id=" + id + ", seats=" + seats + ", reservations=" + reservations + ", restaurant="
 				+ restaurant + "]";
 	}
 
