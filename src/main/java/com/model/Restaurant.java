@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "RESTAURANTS")
+@Table(name = "restaurants")
 @JsonIgnoreProperties(value = { "tables", "reservations" })
 public class Restaurant {
 	@Id
