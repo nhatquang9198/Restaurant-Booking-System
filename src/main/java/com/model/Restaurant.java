@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class Restaurant {
 	@Column(name = "NAME")
 	private String name;
 
-	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
 	private List<ResTable> tables;
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE)
@@ -34,10 +35,11 @@ public class Restaurant {
 	public Restaurant() {
 	}
 
-	public Restaurant(long id, String name, List<ResTable> tables) {
+	public Restaurant(long id, String name, List<ResTable> tables, List<ResTable> reservations) {
 		this.id = id;
 		this.name = name;
 		this.tables = tables;
+		this.reservations = reservations;
 	}
 
 	public long getId() {
@@ -64,9 +66,18 @@ public class Restaurant {
 		this.tables = tables;
 	}
 
+	public List<ResTable> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<ResTable> reservations) {
+		this.reservations = reservations;
+	}
+
 	@Override
 	public String toString() {
-		return "Restaurant [id=" + id + ", name=" + name + ", tables=" + tables + "]";
+		return "Restaurant [id=" + id + ", name=" + name + ", tables=" + tables + ", reservations=" + reservations
+				+ "]";
 	}
 
 }
