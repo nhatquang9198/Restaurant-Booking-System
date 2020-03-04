@@ -20,9 +20,9 @@ public interface ITableRepository extends PagingAndSortingRepository<ResTable, L
 //	public List<ResTable> findEmptyTablesByRestaurantId(@Param("restaurantId") Long restaurantId,
 //			@Param("date") LocalDate date);
 
-	@Query("SELECT t FROM ResTable t WHERE t.restaurant = :restaurant AND t.id NOT IN (SELECT t.id FROM ResTable t JOIN Reservation r ON t.id = r.resTable WHERE r.date = :date AND r.isApproved = true)")
+	@Query("SELECT t FROM ResTable t WHERE t.restaurant = :restaurant AND t.seats >= :peoples AND t.id NOT IN (SELECT t.id FROM ResTable t JOIN Reservation r ON t.id = r.resTable WHERE r.date = :date AND r.isApproved = true)")
 	public List<ResTable> findEmptyTablesByRestaurantId(@Param("restaurant") Restaurant restaurant,
-			@Param("date") LocalDate date);
+			@Param("date") LocalDate date, @Param("peoples") int peoples);
 
 	// "SELECT t FROM ResTable t WHERE t.restaurant = :restaurant AND t.id
 	// NOT IN (SELECT t.id FROM ResTable t JOIN Reservation r ON t.id = r.resTable

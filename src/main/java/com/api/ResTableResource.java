@@ -49,8 +49,9 @@ public class ResTableResource {
 	// Read all tables that are available of a specific restaurant
 	@GetMapping("/emptytables")
 	public ResponseEntity<List<ResTable>> findEmptyTablesByRestaurantId(@PathVariable("restaurantId") Long restaurantId,
-			@RequestParam("date") @DateTimeFormat(iso = ISO.DATE) LocalDate date) {
-		return ResponseEntity.ok().body(tableService.findEmptyTablesByRestaurantId(restaurantId, date));
+			@RequestParam("date") @DateTimeFormat(iso = ISO.DATE) LocalDate date,
+			@RequestParam("peoples") int peoples) {
+		return ResponseEntity.ok().body(tableService.findEmptyTablesByRestaurantId(restaurantId, date, peoples));
 	}
 
 	// Update
