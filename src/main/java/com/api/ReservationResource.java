@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.model.Reservation;
@@ -27,8 +28,8 @@ public class ReservationResource {
 	// Create
 	@PostMapping("/tables/{tableId}/reserve")
 	public Reservation save(@PathVariable("tableId") Long tableId, @PathVariable("restaurantId") Long restaurantId,
-			@RequestBody Reservation reservation) {
-		return reservationService.create(tableId, restaurantId, reservation);
+			@RequestParam("date") String date) {
+		return reservationService.create(tableId, restaurantId, date);
 	}
 
 	// Read all reservations of a specific restaurant

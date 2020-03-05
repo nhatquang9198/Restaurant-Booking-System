@@ -1,11 +1,8 @@
 package com.api;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,7 +46,7 @@ public class ResTableResource {
 	// Read all tables that are available of a specific restaurant
 	@GetMapping("/emptytables")
 	public ResponseEntity<List<ResTable>> findEmptyTablesByRestaurantId(@PathVariable("restaurantId") Long restaurantId,
-			@RequestParam("date") @DateTimeFormat(iso = ISO.DATE) LocalDate date,
+			@RequestParam("date") String date,
 			@RequestParam("peoples") int peoples) {
 		return ResponseEntity.ok().body(tableService.findEmptyTablesByRestaurantId(restaurantId, date, peoples));
 	}

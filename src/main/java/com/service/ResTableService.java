@@ -48,11 +48,12 @@ public class ResTableService {
 		return restaurantRepository.findById(restaurantId).get().getTables();
 	}
 
-	public List<ResTable> findEmptyTablesByRestaurantId(Long restaurantId, LocalDate date, int people) {
+	public List<ResTable> findEmptyTablesByRestaurantId(Long restaurantId, String date, int people) {
 		Restaurant restaurant = restaurantRepository.findById(restaurantId).get();
-//		LocalDate parsed_date = LocalDate.parse(date);
+		LocalDate reserve_date = LocalDate.parse(date);
+		reserve_date = reserve_date.plusDays(1);
 
-		return tableRepository.findEmptyTablesByRestaurantId(restaurant, date, people);
+		return tableRepository.findEmptyTablesByRestaurantId(restaurant, reserve_date, people);
 	}
 
 }

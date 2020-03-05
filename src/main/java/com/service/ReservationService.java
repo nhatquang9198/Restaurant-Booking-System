@@ -22,13 +22,20 @@ public class ReservationService {
 	@Autowired
 	private IRestaurantRepository restaurantRepository;
 
-	public Reservation create(Long restaurantId, Long tableId, Reservation reservation) {
-		if (isValidDate(reservation.getDate())) {
+	public Reservation create(Long restaurantId, Long tableId, String date) {
+		LocalDate reserve_date = LocalDate.parse(date);
+		reserve_date = reserve_date.plusDays(1);
+
+		if (isValidDate(reserve_date)) {
 			ResTable table = tableRepository.findById(tableId).get();
 			Restaurant restaurant = restaurantRepository.findById(restaurantId).get();
 
+			Reservation reservation = new Reservation();
+
 			reservation.setRestaurant(restaurant);
 			reservation.setResTable(table);
+			reservation.setDate(reserve_date);
+			reservation.setApproved(false);
 
 			return reservationRepository.save(reservation);
 		} else {
