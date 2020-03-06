@@ -27,9 +27,9 @@ public class ReservationResource {
 
 	// Create
 	@PostMapping("/tables/{tableId}/reserve")
-	public Reservation save(@PathVariable("tableId") Long tableId, @PathVariable("restaurantId") Long restaurantId,
+	public Reservation save(@PathVariable("restaurantId") Long restaurantId, @PathVariable("tableId") Long tableId,
 			@RequestParam("date") String date) {
-		return reservationService.create(tableId, restaurantId, date);
+		return reservationService.create(restaurantId, tableId, date);
 	}
 
 	// Read all reservations of a specific restaurant

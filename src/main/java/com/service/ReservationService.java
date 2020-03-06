@@ -27,6 +27,7 @@ public class ReservationService {
 		reserve_date = reserve_date.plusDays(1);
 
 		if (isValidDate(reserve_date)) {
+			System.out.println(tableId+"asdhjagweqwen\\n\n\n\n\n\n\n\nn");
 			ResTable table = tableRepository.findById(tableId).get();
 			Restaurant restaurant = restaurantRepository.findById(restaurantId).get();
 
@@ -35,7 +36,6 @@ public class ReservationService {
 			reservation.setRestaurant(restaurant);
 			reservation.setResTable(table);
 			reservation.setDate(reserve_date);
-			reservation.setApproved(false);
 
 			return reservationRepository.save(reservation);
 		} else {
